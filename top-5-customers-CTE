@@ -1,0 +1,60 @@
+/* Top 5 Customers and their country of origin */
+WITH top_5_customers_cte(
+    customer_id,
+    first_name,
+    last_name,
+    country,
+    city,
+    total_amount_paid)
+AS(
+	SELECT
+		cst.customer_id,	
+		cst.first_name,
+		cst.last_name,
+		cnt.country,
+		cty.city,
+		SUM(pmnt.amount) AS total_amount_paid
+	FROM city cty
+	INNER JOIN address adr
+		ON cty.city_id = adr.city_id
+	INNER JOIN customer cst
+		ON adr.address_id = cst.address_id
+	INNER JOIN payment pmnt
+		ON cst.customer_id = pmnt.customer_id
+	INNER JOIN country cnt
+		ON cty.country_id = cnt.country_id
+	WHERE cty.city IN(
+		'Aurora',
+		'Acua',
+		'Citrus Heights',
+		'Iwaki',
+		'Ambattur',
+		'Shanwei',
+		'So Leopoldo',
+		'Teboksary',
+		'Tianjin',
+		'Cianjur')
+	GROUP BY
+		cst.customer_id,	
+		cst.first_name,
+		cst.last_name,
+		cnt.country,
+		cty.city
+	ORDER BY total_amount_paid DESC
+	LIMIT 5)
+SELECT
+	cnt.country,
+	COUNT(cst.customer_id) AS all_customer_count,
+	COUNT(top5_cte.customer_id) AS top_customer_count
+FROM customer cst
+INNER JOIN address adr
+	ON cst.address_id = adr.address_id
+INNER JOIN city cty
+	ON adr.city_id = cty.city_id
+INNER JOIN country cnt
+	ON cty.country_id = cnt.country_id
+LEFT JOIN top_5_customers_cte AS top5_cte
+	ON cst.customer_id = top5_cte.customer_id
+GROUP BY cnt.country
+ORDER BY all_customer_count DESC
+LIMIT 5;
