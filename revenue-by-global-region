@@ -1,0 +1,34 @@
+/* All movie categories and sum of revenue for each  */
+/* UN Region designations used to define each region */
+SELECT
+	CASE WHEN c.country_id IN (4,19,21,25,31,37,52,57,58,63,69,79,83,85,89,93,109)
+			THEN 'Africa'
+		WHEN c.country_id IN (12,16,18,23,36,42,44,45,50,51,59,64,66,70,75,80,86,88,92,94,98,105)
+			THEN 'Asia'
+		WHEN c.country_id IN (3,8,65,68,95,99)
+			THEN 'Australia/Oceania'
+		WHEN c.country_id IN (5,27,77,81,106)
+			THEN 'Central America'
+		WHEN c.country_id IN (7,9,13,17,26,30,32,33,34,38,39,41,43,49,54,55,56,61,67,76,78,84,87,90,91,100,102,108)
+			THEN 'Europe'
+		WHEN c.country_id IN (1,2,10,11,29,46,47,48,53,62,71,72,82,96,97,101,107)
+			THEN 'Middle East'
+		WHEN c.country_id IN (20,40,60,103)
+			THEN 'North America'
+		WHEN c.country_id IN (6,14,15,22,24,28,35,73,74,104)
+			THEN 'South America'
+	END AS regions, /* UN Region designations used from web */
+	SUM(p.amount) AS region_revenue
+FROM
+	country c
+INNER JOIN city cit
+	ON c.country_id = cit.country_id
+INNER JOIN address a
+	ON cit.city_id = a.city_id
+INNER JOIN customer cust
+	ON a.address_id = cust.address_id
+INNER JOIN payment p
+	ON cust.customer_id = p.customer_id
+GROUP BY
+	regions
+ORDER BY SUM(p.amount) DESC;
