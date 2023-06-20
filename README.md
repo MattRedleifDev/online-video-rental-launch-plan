@@ -1,11 +1,6 @@
 # Rockbuster Stealth LLC online video service launch plan
 Data Analysis (SQL) of a fictional movie rental company as part of the CareerFoundry Data Analytics course.
 
-## Tools used
-- SQL
-- Tableau
-- MS Office (Excel, Word, Powerpoint)
-
 ## Analysis overview
 Rockbuster Stealth LLC is launching an online video rental service in order to stay competitive.
 As a Data Analyst, support the 2020 company strategy through analysis of [the Rockbuster PostgreSQL database](www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip)
