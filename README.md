@@ -1,7 +1,7 @@
 # Rockbuster Stealth LLC online video service launch plan
 Data Analysis (SQL) of a fictional movie rental company as part of the CareerFoundry Data Analytics course.
 
-# Tools used
+## Tools used
 - SQL
 - Tableau
 - MS Office (Excel, Word, Powerpoint)
