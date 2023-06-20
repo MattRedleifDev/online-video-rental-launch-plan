@@ -1,0 +1,11 @@
+/* Customer table - missing value check  */
+SELECT *
+FROM customer
+WHERE
+	first_name IS NULL
+	OR last_name IS NULL
+	OR email IS NULL
+	OR activebool IS NULL
+	OR create_date IS NULL
+	OR last_update IS NULL
+	OR active IS NULL;
